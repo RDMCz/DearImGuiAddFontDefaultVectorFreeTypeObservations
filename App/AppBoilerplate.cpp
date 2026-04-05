@@ -43,11 +43,11 @@ bool App::Init()
     // Create window with graphics context
     const float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor());
     // Valid on GLFW 3.3+ only
-    window = glfwCreateWindow(static_cast<int>(900 * main_scale), static_cast<int>(450 * main_scale),
+    m_window = glfwCreateWindow(static_cast<int>(900 * main_scale), static_cast<int>(450 * main_scale),
                               m_window_title, nullptr, nullptr);
-    if (window == nullptr)
+    if (m_window == nullptr)
         return false;
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(m_window);
     glfwSwapInterval(1); // Enable vsync
 
     // Init Glad
@@ -82,9 +82,9 @@ bool App::Init()
     // Set initial font scale. (using io.ConfigDpiScaleFonts=true makes this unnecessary. We leave both here for documentation purpose)
 
     // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 #ifdef __EMSCRIPTEN__
-    ImGui_ImplGlfw_InstallEmscriptenCallbacks(window, "#canvas");
+    ImGui_ImplGlfw_InstallEmscriptenCallbacks(m_window, "#canvas");
 #endif
     ImGui_ImplOpenGL3_Init(glsl_version);
 
@@ -103,7 +103,7 @@ void App::Run()
     io.IniFilename = nullptr;
     EMSCRIPTEN_MAINLOOP_BEGIN
 #else
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(m_window))
 #endif
     {
         // Poll and handle events (inputs, window resize, etc.)
@@ -112,7 +112,7 @@ void App::Run()
         // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
         // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
         glfwPollEvents();
-        if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0)
+        if (glfwGetWindowAttrib(m_window, GLFW_ICONIFIED) != 0)
         {
             ImGui_ImplGlfw_Sleep(10);
             continue;
@@ -129,14 +129,14 @@ void App::Run()
         // Rendering
         ImGui::Render();
         int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
+        glfwGetFramebufferSize(m_window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(m_clear_color.x * m_clear_color.w, m_clear_color.y * m_clear_color.w, m_clear_color.z * m_clear_color.w,
                      m_clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(m_window);
     }
 #ifdef __EMSCRIPTEN__
     EMSCRIPTEN_MAINLOOP_END;
@@ -147,6 +147,6 @@ void App::Run()
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(m_window);
     glfwTerminate();
 }

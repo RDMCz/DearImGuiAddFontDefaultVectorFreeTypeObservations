@@ -31,7 +31,7 @@ public:
 
 private:
     // = Members =
-    GLFWwindow* window{};
+    GLFWwindow* m_window{};
 
     ImVec4 m_clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     const char* m_window_title = "DearImGuiProggyForeverFreeTypeBlurIssue?";

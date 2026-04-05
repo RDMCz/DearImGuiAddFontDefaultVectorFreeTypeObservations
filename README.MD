@@ -68,6 +68,12 @@ Last line in the upper window is the only line that is using the font from the T
 
 ![alt text](./_IMG/ft14_essOFF.png)
 
+## How to set up and build
+
+* The CMakeLists.txt contains three variables `USE_FREETYPE_ANY`, `USE_FREETYPE_LATEST`, and `APPLY_EXTRA_SCALE`. Turning these ON or OFF will determine if the FreeType is used, what version is used, and if `AddFontDefaultVector` should increase the `ExtraSizeScale`.
+* To build on Linux: `cmake -S . -B build`, then `cmake --build build`
+* On Windows I just open it in VS/CLion, wait for a bit, and then hit the play button :)
+
 ## Details
 
 Version/Branch of Dear ImGui:
