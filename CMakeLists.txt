@@ -12,9 +12,9 @@ set(CMAKE_CXX_STANDARD 20)
 # ==============================
 # =   FREETYPE/FONT SETTINGS   =
 # ==============================
-set(USE_FREETYPE_ANY ON)
-set(USE_FREETYPE_LATEST ON)
-set(APPLY_EXTRA_SCALE ON)
+set(USE_FREETYPE_ANY ON)        # ON → Use FreeType; OFF → Use stb_truetype
+set(USE_FREETYPE_LATEST ON)     # ON → Use FreeType ver. 2.14.3; OFF → Use FreeType ver. 2.13.3
+set(APPLY_EXTRA_SCALE ON)       # Turning this OFF will remove the `font_cfg.ExtraSizeScale *= 1.015f;` from `AddFontDefaultVector`
 # ==============================
 
 # Build only the necessary parts of GLFW
@@ -43,7 +43,6 @@ endif ()
 
 if (USE_FREETYPE_LATEST)
     add_subdirectory(Dependency/freetype-VER-2-14-3)
-    target_compile_definitions(imgui PUBLIC IMGUI_ENABLE_FREETYPE)
 else ()
     add_subdirectory(Dependency/freetype-VER-2-13-3)
 endif ()

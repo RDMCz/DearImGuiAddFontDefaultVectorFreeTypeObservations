@@ -37,7 +37,7 @@ Text looks OK without FreeType. The `ExtraSizeScale` just makes it a bit bigger,
 
 This is the version of FreeType you get when using _vcpkg_ (as the time of writing).
 
-The text blurry, but if we disable `ExtraSizeScale`, it looks OK again!
+The text is blurry, but if we disable `ExtraSizeScale`, it looks OK again!
 
 Last line in the upper window is the only line that is using the font from the TTF file instead of using `AddFontDefaultVector`. It looks great on both screenshots!
 
